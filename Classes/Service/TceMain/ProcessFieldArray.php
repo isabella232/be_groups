@@ -32,6 +32,21 @@
 class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 
 	/**
+	 * @var array
+	 */
+	private $setIncludeListFlag = array (
+		0 => null,
+		1 => true,
+		2 => true,
+		3 => false,
+		4 => false,
+		5 => false,
+		6 => false,
+		7 => false,
+		8 => false,
+	);
+
+	/**
 	 * Update inc_access_lists value if the table is "be_groups"
 	 *
 	 * @param array $incomingFieldArray Current record
@@ -43,31 +58,87 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 	 */
 	public function processDatamap_preProcessFieldArray(&$incomingFieldArray, $table, $id, $parentObj) {
 		if ($table == 'be_groups') {
+			$this->resetHiddenFields($incomingFieldArray, $id);
+			$this->setHideInListFlagIfTypeIsNotMeta($incomingFieldArray);
+			$this->setIncludeAccessListFlag($incomingFieldArray);
+			$this->mergeSubgroups($incomingFieldArray);
+		}
+	}
 
-				// reset all fields except the relevant for the current selected view
-			if (! is_null($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']]) ) {
-				$fieldsToKeepArray = array_keys(t3lib_beFunc::getTCAtypes('be_groups', $incomingFieldArray, 1));
+	/**
+	 * Merge all updates from "subgroup_*" fields back into the original "subgroup" field.
+	 *
+	 * @param array $incomingFieldArray
+	 * @return void
+	 */
+	protected function mergeSubgroups(&$incomingFieldArray) {
+		$selectedList = array();
+		$subgroupList = array();
+		$fieldListToMerge = array('subgroup_fm', 'subgroup_pm', 'subgroup_ws', 'subgroup_r', 'subgroup_pa', 'subgroup_ts', 'subgroup_l');
 
-				foreach ($incomingFieldArray as $column => $value) {
-					if (! in_array($column, $fieldsToKeepArray) && (t3lib_div::testInt($id) === true) ) {
-						$incomingFieldArray[$column] = null;
-					}
+		foreach ($fieldListToMerge as $fieldName) {
+			if (is_array($incomingFieldArray[$fieldName])) {
+				$selectedList = t3lib_div::array_merge($selectedList, array_flip($incomingFieldArray[$fieldName]));
+			}
+		}
+
+			// fix expected structure
+		foreach ($selectedList as $key => $value) {
+			$subgroupList[] = $key;
+		}
+
+		$incomingFieldArray['subgroup'] = $subgroupList;
+	}
+
+	/**
+	 * Reset all fields except the relevant for the current selected view.
+	 *
+	 * @param array $incomingFieldArray
+	 * @param integer $id
+	 * @return void
+	 */
+	protected function resetHiddenFields(&$incomingFieldArray, $id) {
+
+		if (! is_null($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']]) ) {
+			$fieldsToKeepArray = array_keys(t3lib_beFunc::getTCAtypes('be_groups', $incomingFieldArray, 1));
+
+			foreach ($incomingFieldArray as $column => $value) {
+				if (! in_array($column, $fieldsToKeepArray) && (t3lib_utility_Math::canBeInterpretedAsInteger($id) === true) ) {
+					$incomingFieldArray[$column] = null;
 				}
 			}
+		}
+	}
 
-				// hide subgroups if they are not of type meta
-			if ($incomingFieldArray['tx_begroups_kind'] == 3) {
-				$incomingFieldArray['hide_in_lists'] = 0;
-			} else {
-				$incomingFieldArray['hide_in_lists'] = 1;
-			}
+	/**
+	 * Include the access list based on the defined matrix in member
+	 * Tx_BeGroups_Service_TceMain_ProcessFieldArray::$setIncludeListFlag
+	 *
+	 * @param array $incomingFieldArray
+	 * @return void
+	 */
+	protected function setIncludeAccessListFlag(&$incomingFieldArray) {
+			// update include access list flag
+		if ($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']] === true) {
+			$incomingFieldArray['inc_access_lists'] = 1;
+		} elseif ($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']] === false) {
+			$incomingFieldArray['inc_access_lists'] = 0;
+		}
+	}
 
-				// update include access list flag
-			if ($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']] === true) {
-				$incomingFieldArray['inc_access_lists'] = 1;
-			} elseif ($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']] === false) {
-				$incomingFieldArray['inc_access_lists'] = 0;
-			}
+	/**
+	 * Be sure that the hide_in_list flag is always set to the correct
+	 * value if the tx_begroups_kind is changed.
+	 *
+	 * @param array $incomingFieldArray
+	 * @return void
+	 */
+	protected function setHideInListFlagIfTypeIsNotMeta(&$incomingFieldArray) {
+
+		if ($incomingFieldArray['tx_begroups_kind'] == 3) {
+			$incomingFieldArray['hide_in_lists'] = 0;
+		} else {
+			$incomingFieldArray['hide_in_lists'] = 1;
 		}
 	}
 }

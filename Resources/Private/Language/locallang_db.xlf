@@ -6,6 +6,9 @@
 			<trans-unit id="be_groups.tx_begroups_kind" xml:space="preserve">
 				<source>Kind of</source>
 			</trans-unit>
+			<trans-unit id="be_groups.tabs.page_access" xml:space="preserve">
+				<source>Page access group</source>
+			</trans-unit>
 			<trans-unit id="be_groups.tabs.file_mount" xml:space="preserve">
 				<source>File mount</source>
 			</trans-unit>
@@ -15,8 +18,14 @@
 			<trans-unit id="be_groups.tabs.tsconfig" xml:space="preserve">
 				<source>UserTSconfig</source>
 			</trans-unit>
-			<trans-unit id="be_groups.tabs.subgroup" xml:space="preserve">
-				<source>Subgroup</source>
+			<trans-unit id="be_groups.tabs.mountAndWs" xml:space="preserve">
+				<source>Mount and WS</source>
+			</trans-unit>
+			<trans-unit id="be_groups.tabs.rights" xml:space="preserve">
+				<source>Rights</source>
+			</trans-unit>
+			<trans-unit id="be_groups.tabs.language" xml:space="preserve">
+				<source>Language</source>
 			</trans-unit>
 			<trans-unit id="be_groups.tabs.custom_options" xml:space="preserve">
 				<source>Access custom modul options</source>
