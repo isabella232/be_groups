@@ -1,0 +1,6 @@
+
+04-07-2012 Michael Klapper  <michael.klapper@morphodo.com>
+	* Create new icon added to the be_group record on field subgroup
+	* Show only groups of type META in be_user records
+	* Hide groups in be_group records if they are of type META
+	* Initial release
