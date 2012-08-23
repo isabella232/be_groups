@@ -5,4 +5,5 @@ TYPO3 Rights-Management for backend user groups
 
 Migrate from older version
 ==========
-UPDATE be_groups SET hide_in_lists = 1 WHERE tx_begroups_kind NOT IN(3);
+Use the update functionality provided by the extension manager.
+	Extension be_groups => Info => Update
