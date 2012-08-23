@@ -24,8 +24,8 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => '',
-	'description' => '',
+	'title' => 'Improved backend groups management interface.',
+	'description' => 'This extension provide several new options to restructure large amount of be_groups records.',
 	'category' => 'misc',
 	'author' => 'Michael Klapper',
 	'author_email' => 'development@morphodo.com',
@@ -34,7 +34,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
-	'state' => 'beta',
+	'state' => 'stable',
 	'internal' => '',
 	'uploadfolder' => 0,
 	'createDirs' => '',
