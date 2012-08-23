@@ -1,3 +1,6 @@
+23-08-2012 Michael Klapper  <michael.klapper@morphodo.com>
+	* Introduced two wizards to migrate to the new be_groups interface.
+
 05-07-2012 Michael Klapper  <michael.klapper@morphodo.com>
 	* Restructure the field subgroup into seven new fields to improve the user experience.
 
