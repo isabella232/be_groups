@@ -31,6 +31,12 @@
  */
 class Tx_BeGroups_Migrate_UserExperience {
 
+	/**
+	 * Display the wizard form to choose a migration process to the new
+	 * be_groups user interface.
+	 *
+	 * @return string
+	 */
 	public function wizardForm() {
 		$step = t3lib_div::_GP('step') ? t3lib_div::_GP('step') : FALSE;
 		$hideInListWizardStep = t3lib_div::_GP('hideInListWizardStep') ? TRUE : FALSE;
@@ -39,20 +45,27 @@ class Tx_BeGroups_Migrate_UserExperience {
 		$formPanel = '<form method="POST">%s</form>';
 		$controls = '<input type="hidden" name="step" value="1" />';
 		$controls .= '<input type="checkbox" name="hideInListWizardStep" value="1" /> Activate "hide in list" checkbox for records != "META" (' . $this->hideInListWizardAffectsCount() . ' rows).<br />';
-		$controls .= '<input type="checkbox" name="subGroupWizardStep" value="1" /> Split be_groups configuration into seperate fields.<br />';
+		$controls .= '<input type="checkbox" name="subGroupWizardStep" value="1" /> Split be_groups configuration into seperate fields (' . $this->subGroupWizardAffectsCount() . ' rows).<br />';
 		$controls .= '<input type="submit" value="Submit" />';
 
 		switch($step) {
 			case 1:
 				$processList = '<ol>%s</ol>';
 				$listItem = '';
-				$content .= '<h2>Following actions processed:</h2>';
+				$content .= '<h1>Following actions processed:</h1>';
 				if ($hideInListWizardStep) {
 					$this->setHideInListFlag();
-					$listItem .= '<li> - hideInListWizard OK</li>';
+					$listItem .= '<h2>hide in list wizard OK</h2>';
 				}
 				if ($subGroupWizardStep) {
-					$listItem .= '<li> - subGroupWizardStep OK</li>';
+					$updatedRecords = $this->subGroupWizard();
+					$updateListItem = '';
+
+					foreach ($updatedRecords as $record) {
+						$updateListItem .= '<li>[' . $record['uid'] . '] ' . $record['title'] . '</li>';
+					}
+
+					$listItem .= sprintf('<h2>Subgroup wizard</h2><h3>Updated the following records:</h3><ul>%s</ul>', $updateListItem);
 				}
 				$content .= sprintf($processList, $listItem);
 				break;
@@ -64,18 +77,123 @@ class Tx_BeGroups_Migrate_UserExperience {
 		return $content;
 	}
 
+	/**
+	 * Update be_groups records and set the hide_in_list flag on
+	 * those records who are not of type "META".
+	 *
+	 * @return void
+	 */
 	protected function setHideInListFlag() {
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('be_groups', 'tx_begroups_kind NOT IN(3)', array('hide_in_lists' => 1));
+		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('be_groups', 'tx_begroups_kind NOT IN(3) AND deleted = 0', array('hide_in_lists' => 1));
 	}
 
 	/**
+	 * Return the integer count of affected rows that will be
+	 * updated during wizard action.
 	 *
+	 * @return integer
 	 */
 	protected function hideInListWizardAffectsCount() {
-		return $GLOBALS['TYPO3_DB']->exec_SELECTcountRows('*', 'be_groups', 'tx_begroups_kind NOT IN(3) and hide_in_lists = 0');
+		return $GLOBALS['TYPO3_DB']->exec_SELECTcountRows('*', 'be_groups', 'tx_begroups_kind NOT IN(3) and hide_in_lists = 0 AND deleted = 0');
 	}
 
-	public function subGroupWizard() {
+	/**
+	 * Return the integer count of affected rows that will be
+	 * updated during wizard action.
+	 *
+	 * @return integer
+	 */
+	protected function subGroupWizardAffectsCount() {
+		return $GLOBALS['TYPO3_DB']->exec_SELECTcountRows('*', 'be_groups', 'subgroup != \'\' AND deleted = 0 AND hidden = 0 AND deleted = 0');
+	}
 
+	/**
+	 * 0 = all
+	 * 1 = authorization + extensions
+	 * 2 = language
+	 * 3 = meta
+	 * 4 = page access group
+	 * 5 = starting point of files system
+	 * 6 = starting point of page tree
+	 * 7 = tsconfig
+	 * 8 = workspace
+	 *
+	 * @return void
+	 */
+	public function subGroupWizard() {
+		$updatedRecords = array();
+			// select all relevant records to update
+		$groupRows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid,title,subgroup,tx_begroups_kind', 'be_groups', 'subgroup != \'\' AND deleted = 0');
+
+		foreach ($groupRows as $group) {
+			$subGroupRecordValues = array();
+			$subGroupRecordValues = $this->getSubGroupValueArray($group['subgroup'], $subGroupRecordValues);
+
+			if (!is_array($subGroupRecordValues)) {
+				continue;
+			}
+
+				// final cleanup
+			foreach ($subGroupRecordValues as $index => $value) {
+				$subGroupRecordValues[$index] = t3lib_div::uniqueList($value);
+			}
+
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('be_groups', 'uid=' . $group['uid'], $subGroupRecordValues);
+			$updatedRecords[] = array(
+				'uid' => $group['uid'],
+				'title' => $group['title'],
+			);
+		}
+
+		return $updatedRecords;
+	}
+
+	/**
+	 * This method collects all referenced subgroups and prepare the data for sql update operation.
+	 *
+	 * Method is called recursive.
+	 *
+	 * @param string $recordUidList
+	 * @param array $subGroupRecordValues
+	 * @param bool $recursion
+	 * @return mixed
+	 */
+	protected function getSubGroupValueArray($recordUidList, $subGroupRecordValues, $recursion = FALSE) {
+		$subGroupRecords = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid,title,subgroup,tx_begroups_kind', 'be_groups', 'uid IN(' . trim($recordUidList, ',') . ') AND deleted = 0');
+		$accessTypeMapping = array (
+			1 => 'subgroup_r',
+			2 => 'subgroup_l',
+			4 => 'subgroup_pa',
+			5 => 'subgroup_fm',
+			6 => 'subgroup_pm',
+			7 => 'subgroup_ts',
+			8 => 'subgroup_ws',
+		);
+
+		foreach ($subGroupRecords as $record) {
+
+				// group of type META detected
+			if ($record['tx_begroups_kind'] == 3 && $record['subgroup'] != '' && $recursion === FALSE) {
+				$subGroupRecordValues = $this->getSubGroupValueArray($record['subgroup'], $subGroupRecordValues, TRUE);
+			}
+
+			foreach ($accessTypeMapping as $kind => $fieldName ) {
+				if ($record['tx_begroups_kind'] == $kind) {
+					$subGroupRecordValues[$fieldName] .= $record['uid'] . ',';
+				}
+			}
+		}
+
+			// cleanup
+		foreach ($subGroupRecordValues as $index => $value) {
+			if ($index == 'subgroup') {
+				continue;
+			}
+			$subGroupRecordValues[$index] = rtrim($value, ',') . ',';
+			$subGroupRecordValues['subgroup'] .= $value . ',';
+		}
+		$subGroupRecordValues['subgroup'] = t3lib_div::uniqueList($subGroupRecordValues['subgroup']) . ',';
+
+		return $subGroupRecordValues;
 	}
 }
