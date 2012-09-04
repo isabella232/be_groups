@@ -120,4 +120,4 @@ for combining these groups. If we need a combination of different groups more th
 META group and assign the users to this group. This also makes it easier to change the rights for a
 whole department without having to change them for each individual user.
 
-.. image:: ../../ext_icon.gif
+.. image:: ../../../master/ext_icon.gif
