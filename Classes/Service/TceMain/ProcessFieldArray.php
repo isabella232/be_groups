@@ -58,11 +58,59 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 	 */
 	public function processDatamap_preProcessFieldArray(&$incomingFieldArray, $table, $id, $parentObj) {
 		if ($table == 'be_groups') {
+			$recordBefore = t3lib_befunc::getRecord('be_groups', $id, 'tx_begroups_kind,subgroup');
+
 			$this->resetHiddenFields($incomingFieldArray, $id);
 			$this->setHideInListFlagIfTypeIsNotMeta($incomingFieldArray);
 			$this->setIncludeAccessListFlag($incomingFieldArray);
-			$this->mergeSubgroups($incomingFieldArray);
+
+				// change type from "default" to "meta"
+			if ($recordBefore['tx_begroups_kind'] === "0" && $incomingFieldArray['tx_begroups_kind'] === "3") {
+				$subGroupRecordValues = array();
+				if (is_null($incomingFieldArray['subgroup'])) {
+					unset($incomingFieldArray['subgroup']);
+					$subGroupIdList = $recordBefore['subgroup'];
+				} else {
+					$subGroupIdList = $this->getIdListFromArray($incomingFieldArray['subgroup']);
+				}
+				/* @var $userExperience Tx_BeGroups_Migrate_UserExperience */
+				$userExperience = t3lib_div::makeInstance('Tx_BeGroups_Migrate_UserExperience');
+				$subGroupRecordValues = $userExperience->getSubGroupValueArray($subGroupIdList, $subGroupRecordValues);
+
+					// final cleanup
+				foreach (Tx_BeGroups_Migrate_UserExperience::$ACCESS_TYPE_MAPPING as $index ) {
+					if (array_key_exists($index, $subGroupRecordValues)) {
+						$incomingFieldArray[$index] = explode(',', t3lib_div::uniqueList($subGroupRecordValues[$index]));
+					} else {
+						$incomingFieldArray[$index] = NULL;
+					}
+				}
+
+				$subGroupRecordValues = $subGroupRecordValues;
+			} elseif ($recordBefore['tx_begroups_kind'] === "3" && $incomingFieldArray['tx_begroups_kind'] === "3") {
+				$this->mergeSubgroups($incomingFieldArray);
+			}
+
 		}
+	}
+
+	/**
+	 * Build comma seperated list of IDs.
+	 *
+	 * @param array $fieldValue
+	 * @return string
+	 */
+	protected function getIdListFromArray($fieldValue) {
+		$subgroupList = '';
+
+		if (is_array($fieldValue)) {
+				// fix expected structure
+			foreach ($fieldValue as $key => $value) {
+				$subgroupList .= $value . ',';
+			}
+		}
+
+		return trim($subgroupList, ',');
 	}
 
 	/**

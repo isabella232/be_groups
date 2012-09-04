@@ -1,3 +1,7 @@
+04-09-2012 Michael Klapper  <michael.klapper@morphodo.com>
+	* Update subgroup_* fields if you switch from default (tx_begroups_kind = 0)
+	  to type META (tx_begroups_kind = 3).
+
 23-08-2012 Michael Klapper  <michael.klapper@morphodo.com>
 	* Introduced two wizards to migrate to the new be_groups interface.
 

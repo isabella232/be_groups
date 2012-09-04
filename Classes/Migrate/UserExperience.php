@@ -31,6 +31,16 @@
  */
 class Tx_BeGroups_Migrate_UserExperience {
 
+	static $ACCESS_TYPE_MAPPING = array (
+			1 => 'subgroup_r',
+			2 => 'subgroup_l',
+			4 => 'subgroup_pa',
+			5 => 'subgroup_fm',
+			6 => 'subgroup_pm',
+			7 => 'subgroup_ts',
+			8 => 'subgroup_ws',
+		);
+
 	/**
 	 * Display the wizard form to choose a migration process to the new
 	 * be_groups user interface.
@@ -158,17 +168,8 @@ class Tx_BeGroups_Migrate_UserExperience {
 	 * @param bool $recursion
 	 * @return mixed
 	 */
-	protected function getSubGroupValueArray($recordUidList, $subGroupRecordValues, $recursion = FALSE) {
+	public function getSubGroupValueArray($recordUidList, $subGroupRecordValues, $recursion = FALSE) {
 		$subGroupRecords = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid,title,subgroup,tx_begroups_kind', 'be_groups', 'uid IN(' . trim($recordUidList, ',') . ') AND deleted = 0');
-		$accessTypeMapping = array (
-			1 => 'subgroup_r',
-			2 => 'subgroup_l',
-			4 => 'subgroup_pa',
-			5 => 'subgroup_fm',
-			6 => 'subgroup_pm',
-			7 => 'subgroup_ts',
-			8 => 'subgroup_ws',
-		);
 
 		foreach ($subGroupRecords as $record) {
 
@@ -177,7 +178,7 @@ class Tx_BeGroups_Migrate_UserExperience {
 				$subGroupRecordValues = $this->getSubGroupValueArray($record['subgroup'], $subGroupRecordValues, TRUE);
 			}
 
-			foreach ($accessTypeMapping as $kind => $fieldName ) {
+			foreach (self::$ACCESS_TYPE_MAPPING as $kind => $fieldName ) {
 				if ($record['tx_begroups_kind'] == $kind) {
 					$subGroupRecordValues[$fieldName] .= $record['uid'] . ',';
 				}
