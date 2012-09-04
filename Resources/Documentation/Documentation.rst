@@ -41,8 +41,7 @@ Rights Groups [R]
 ======================
 In these groups prefixed “**[R]**” we set the actual backend rights, including those settings available
 after checking the checkbox “Include Access Lists”. These are:
-- The visible modules in the backend menu. Only those necessary for the specific task of the
-  rights group are set.
+- The visible modules in the backend menu. Only those necessary for the specific task of the rights group are set.
 - The tables and fields which the user may see and edit.
 - Disabling extensions and record types which are not needed.
 
@@ -71,29 +70,24 @@ In the advanced approach, one page access group is created for every page mount 
 its respective rights. That means that a page in the page tree should always belong to a page access
 group. The page access groups have to correspond to the page tree and should usually have the same
 hierarchy. The following guidelines should be followed:
-- A page access group corresponds to a certain sub-tree in the page tree. All pages of this subtree
-  should belong to this group. This setting is managed with the access module.
+- A page access group corresponds to a certain sub-tree in the page tree. All pages of this subtree should belong to this group. This setting is managed with the access module.
 - Page access groups should have the same name as the corresponding page.
-- One line of TSConfig in the page properties causes newsly created subpages to be
-  automatically assigned to the correct page access group.
+- One line of TSConfig in the page properties causes newsly created subpages to be automatically assigned to the correct page access group.
 - There should be at least as many page access groups as there are page mounts for editors.
-- A page access group should include those subgroups which are directly under it in the
-  corresponding page hierarchy as subgroups. Thus, the same structure as in the page tree is
-  created and users belonging to a superordinate group also have the rights to edit the pages
-  assigned to the subordinate page access groups.
+- A page access group should include those subgroups which are directly under it in the corresponding page hierarchy as subgroups. Thus, the same structure as in the page tree is created and users belonging to a superordinate group also have the rights to edit the pages assigned to the subordinate page access groups.
 
 Automatically Assigning New Pages to a Group
 --------------------------------------------
 By inserting the following TypoScript on the rootpage of a pagetree, we set group permissions and
 owner groups for all newly created subpages.
-    <TS>
+<TS>
     TCEMAIN {
             # common right settings for new pages
         permissions.group = show,edit,delete,new,editcontent
             #page group for newly created pages = [P] Project 1
         permissions.groupid = 1
     }
-    </TS>
+</TS>
 
 Workspace Groups [WS]
 ======================
