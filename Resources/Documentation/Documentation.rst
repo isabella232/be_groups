@@ -119,8 +119,12 @@ for combining these groups. If we need a combination of different groups more th
 META group and assign the users to this group. This also makes it easier to change the rights for a
 whole department without having to change them for each individual user.
 
+|imageMetaGroup|
 
+|imageMetaGroupDetail|
 
+.. |imageMetaGroup| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/imageMetaGroup.png
+.. |imageMetaGroupDetail| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/imageMetaGroupDetail.png
 .. |typeIconRights| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_1.gif
 .. |typeIconLanguage| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_2.gif
 .. |typeIconMeta| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_3.gif
