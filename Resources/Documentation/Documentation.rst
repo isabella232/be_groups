@@ -119,22 +119,14 @@ for combining these groups. If we need a combination of different groups more th
 META group and assign the users to this group. This also makes it easier to change the rights for a
 whole department without having to change them for each individual user.
 
-	1 = authorization + extensions
-	2 = language
-	3 = meta
-	4 = page access group
-	5 = starting point of files system
-	6 = starting point of page tree
-	7 = tsconfig
-	8 = workspace
+
 
 .. |typeIconRights| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_1.gif
 .. |typeIconLanguage| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_2.gif
-.. |typeIconPageMeta| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_3.gif
+.. |typeIconMeta| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_3.gif
 .. |typeIconPageAccess| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_4.gif
 .. |typeIconFileMount| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_5.gif
 .. |typeIconPageMount| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_6.gif
 .. |typeIconTsConfig| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_7.gif
 .. |typeIconWorkspace| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_8.gif
-
 .. |extensionIcon| image:: https://raw.github.com/michaelklapper/be_groups/master/ext_icon.gif
