@@ -1,5 +1,5 @@
 =======================
-Backend Group Structure
+Backend Group Structure |extensionIcon|
 =======================
 :Author: Michael Klapper
 
@@ -23,7 +23,6 @@ types of user groups are used (details information about each type below):
 - `Workspace Groups [WS]`_
 - `Language Groups [L]`_
 - `Meta-Groups [META]`_
-
 
 Page Mount Groups [PM]
 ======================
@@ -120,4 +119,4 @@ for combining these groups. If we need a combination of different groups more th
 META group and assign the users to this group. This also makes it easier to change the rights for a
 whole department without having to change them for each individual user.
 
-.. image:: ../../../master/ext_icon.gif
+.. |extensionIcon| image:: https://raw.github.com/michaelklapper/be_groups/master/ext_icon.gif
