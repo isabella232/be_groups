@@ -24,19 +24,19 @@ types of user groups are used (details information about each type below):
 - `Language Groups [L]`_
 - `Meta-Groups [META]`_
 
-Page Mount Groups [PM]
+Page Mount Groups [PM] |typeIconPageMount|
 ======================
 These groups are prefixed “**[PM]**” and set the page mount, or root of the page tree visible to the editor.
 Only the starting point for the page mount is set in these groups. The name of a page mount group
 should be the name of the selected starting point in the page tree.
 
-File Mount Groups [FM]
+File Mount Groups [FM] |typeIconFileMount|
 ======================
 With these groups prefixed “**[FM]**”, we set the file mounts for a user, defining which subdirectories of
 fileadmin/ will be accessible to the user. When using the DAM extension, we select the corresponding
 DAM categories for the respective user groups.
 
-Rights Groups [R]
+Rights Groups [R] |typeIconRights|
 ======================
 In these groups prefixed “**[R]**” we set the actual backend rights, including those settings available
 after checking the checkbox “Include Access Lists”. These are:
@@ -45,13 +45,13 @@ after checking the checkbox “Include Access Lists”. These are:
 - The tables and fields which the user may see and edit.
 - Disabling extensions and record types which are not needed.
 
-TSConfig Groups [TS]
+TSConfig Groups [TS] |typeIconTsConfig|
 ======================
 In these groups prefixed “**[TS]**”, we set the user TSConfig. This can be used for example to define
 adminpanel settings. Depending on the scale of the project, creating TSConfig groups might not be
 necessary or it might be better to include TSConfig settings in rights groups.
 
-Page Access Groups [PA]
+Page Access Groups [PA] |typeIconPageAccess|
 ======================
 Page access groups are prefixed “**[P]**” and are used to manage access rights to the page tree. They
 don’t have their own settings but are only used to manage rights over the access module. For page
@@ -90,7 +90,7 @@ owner groups for all newly created subpages.
     }
     </TS>
 
-Workspace Groups [WS]
+Workspace Groups [WS] |typeIconWorkspace|
 ======================
 For each Workspace, there should be two Workspace groups, a draft and a reviewer group. The only
 setting made in these groups will be the checkbox to allow them to edit the respective workspace. The
@@ -99,7 +99,7 @@ groups will be added to the workspace as “**Members:**” and “**Reviewers:*
 Workspace groups are prefixed “**[WS]**” and are usually not included in META groups but assigned to
 users on an individual basis.
 
-Language Groups [L]
+Language Groups [L] |typeIconLanguage|
 ======================
 The only setting made in language groups is “**Limit to languages:**” to prevent a user from editing any
 but the languages he was specifically authorized to.
@@ -107,7 +107,7 @@ but the languages he was specifically authorized to.
 Language groups are prefixed "**[L]**" and are usually not included in META groups but assigned to
 users on an individual basis
 
-Meta-Groups [META]
+Meta-Groups [META] |typeIconMeta|
 ======================
 Depending on their respective function, every backend user receives a combination of the rights of
 different groups. This should include at least one page mount group, one rights group, and one page
@@ -118,5 +118,23 @@ To simplify this further, we create so-called META groups prefixed “**[META]**
 for combining these groups. If we need a combination of different groups more than once, we create a
 META group and assign the users to this group. This also makes it easier to change the rights for a
 whole department without having to change them for each individual user.
+
+	1 = authorization + extensions
+	2 = language
+	3 = meta
+	4 = page access group
+	5 = starting point of files system
+	6 = starting point of page tree
+	7 = tsconfig
+	8 = workspace
+
+.. |typeIconRights| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_1.gif
+.. |typeIconLanguage| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_2.gif
+.. |typeIconPageMeta| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_3.gif
+.. |typeIconPageAccess| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_4.gif
+.. |typeIconFileMount| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_5.gif
+.. |typeIconPageMount| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_6.gif
+.. |typeIconTsConfig| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_7.gif
+.. |typeIconWorkspace| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_8.gif
 
 .. |extensionIcon| image:: https://raw.github.com/michaelklapper/be_groups/master/ext_icon.gif
