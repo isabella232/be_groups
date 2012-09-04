@@ -123,8 +123,8 @@ whole department without having to change them for each individual user.
 
 |imageMetaGroupDetail|
 
-.. |imageMetaGroup| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/imageMetaGroup.png
-.. |imageMetaGroupDetail| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/imageMetaGroupDetail.png
+.. |imageMetaGroup| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroup.png
+.. |imageMetaGroupDetail| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupDetail.png
 .. |typeIconRights| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_1.gif
 .. |typeIconLanguage| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_2.gif
 .. |typeIconMeta| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_3.gif
