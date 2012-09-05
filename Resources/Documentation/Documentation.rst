@@ -10,7 +10,7 @@ be_groups
    PageBreak
 
 .. contents:: **Table of Contents**
-  :depth: 3
+  :depth: 2
 
 .. raw:: pdf
 
