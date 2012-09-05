@@ -195,8 +195,8 @@ You can use the update wizard provided by the extension manager to convert your 
 
 |imageExtUpdateAction|
 
-.. |imageExtUpdateAction| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/ExtUpdateAction.png.png
-.. |imageExtUpdateInfo| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/ExtUpdateInfo.png.png
+.. |imageExtUpdateAction| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/ExtUpdateAction.png
+.. |imageExtUpdateInfo| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/ExtUpdateInfo.png
 .. |imageMetaGroupGeneral| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupGeneral.png
 .. |imageMetaGroupRights| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupRights.png
 .. |imageMetaGroupMountAndWs| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupMountAndWs.png
