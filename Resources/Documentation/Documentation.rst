@@ -1,7 +1,70 @@
-=======================
+#########################
+be_groups
+#########################
+:Copyright: Michael Klapper
+:Version: 1.1.0
+:Description: This extension provide several new options to restructure large amount of be_groups records.
+
+***************************************
+Overview
+***************************************
+
+Affected Changes at be_groups Records
+=====================================
+
+The New Type Field
+-----------------
+We added a new type field "Kind of" (tx_begroups_kind).
+
+|imageMetaGroup|
+
+Hide In List Flag
+-----------------
+The hide_in_list flag is automatically set depending on the current selected type "Kind of".
+Thus the group records are only visible in the be_user records if they are of type "Default all" or "Meta".
+
+|imageHideInList|
+
+New Fields For Type "Meta"
+--------------------------
+The new be_groups record of type "Meta" is totally restructured and provide new tabs as follow:
+
+- `General`_
+- `Rights`_
+- `Mount and WS`_
+- `Language`_
+- `Options`_
+
+
+General
+^^^^^^^^^^^^^^^^^^^^^^^^^
+|imageMetaGroupGeneral|
+
+Rights
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Mount and WS
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Language
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Options
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Affected Changes at be_user Records
+=====================================
+The "Group" Field provides only be_groups records of type "META" (tx_begroups_kind=3) or "Default all" (tx_begroups_kind=0).
+
+|imageBeUsersGroups|
+
+***************************************
 Backend Group Structure |extensionIcon|
-=======================
-:Author: Michael Klapper
+***************************************
 
 A Systematic Approach Using Different Types of Backend User Groups
 ==================================================================
@@ -81,14 +144,13 @@ Automatically Assigning New Pages to a Group
 --------------------------------------------
 By inserting the following TypoScript on the rootpage of a pagetree, we set group permissions and
 owner groups for all newly created subpages.
-    <TS>
+
     TCEMAIN {
             # common right settings for new pages
         permissions.group = show,edit,delete,new,editcontent
             #page group for newly created pages = [P] Project 1
         permissions.groupid = 1
     }
-    </TS>
 
 Workspace Groups [WS] |typeIconWorkspace|
 ======================
@@ -114,15 +176,20 @@ different groups. This should include at least one page mount group, one rights 
 group (Make sure that both checkboxes under “Mount from Groups” are checked for the user to
 inherit all mounts from the groups).
 
+|imageMetaGroupDetail|
+
 To simplify this further, we create so-called META groups prefixed “**[META]**”, which are responsible
 for combining these groups. If we need a combination of different groups more than once, we create a
 META group and assign the users to this group. This also makes it easier to change the rights for a
 whole department without having to change them for each individual user.
 
-|imageMetaGroup|
-
-|imageMetaGroupDetail|
-
+.. |imageMetaGroupGeneral| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupGeneral.png
+.. |imageMetaGroupRights| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupRights.png
+.. |imageMetaGroupMountAndWs| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupMountAndWs.png
+.. |imageMetaGroupLanguage| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupLanguage.png
+.. |imageMetaGroupOptions| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupOptions.png
+.. |imageHideInList| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/HideInList.png
+.. |imageBeUsersGroups| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/BeUsersGroups.png
 .. |imageMetaGroup| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroup.png
 .. |imageMetaGroupDetail| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupDetail.png
 .. |typeIconRights| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_1.gif
