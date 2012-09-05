@@ -1,6 +1,6 @@
-#########################
+#########
 be_groups  |extensionIcon|
-#########################
+#########
 :Copyright: Michael Klapper
 :Version: 1.1.0
 :Description: This extension provide several new options to restructure large amount of be_groups records.
