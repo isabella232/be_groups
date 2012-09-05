@@ -183,7 +183,7 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 	 */
 	protected function setHideInListFlagIfTypeIsNotMeta(&$incomingFieldArray) {
 
-		if ($incomingFieldArray['tx_begroups_kind'] == 3) {
+		if ($incomingFieldArray['tx_begroups_kind'] == 3 || $incomingFieldArray['tx_begroups_kind'] == 0) {
 			$incomingFieldArray['hide_in_lists'] = 0;
 		} else {
 			$incomingFieldArray['hide_in_lists'] = 1;
