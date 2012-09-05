@@ -5,6 +5,9 @@ be_groups
 :Version: 1.1.0
 :Description: This extension provide several new options to restructure large amount of be_groups records.
 
+  .. contents:: Table of Contents
+     :depth: 2
+
 ***************************************
 Overview
 ***************************************
