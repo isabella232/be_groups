@@ -183,6 +183,20 @@ for combining these groups. If we need a combination of different groups more th
 META group and assign the users to this group. This also makes it easier to change the rights for a
 whole department without having to change them for each individual user.
 
+***************************************
+Migration Steps
+***************************************
+
+Migration From version 0.3.3 (BETA)
+===================================
+You can use the update wizard provided by the extension manager to convert your existing be_groups records to use the new features.
+
+|imageExtUpdateInfo|
+
+|imageExtUpdateAction|
+
+.. |imageExtUpdateAction| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/ExtUpdateAction.png.png
+.. |imageExtUpdateInfo| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/ExtUpdateInfo.png.png
 .. |imageMetaGroupGeneral| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupGeneral.png
 .. |imageMetaGroupRights| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupRights.png
 .. |imageMetaGroupMountAndWs| image:: https://raw.github.com/michaelklapper/be_groups/master/Resources/Documentation/Images/MetaGroupMountAndWs.png
