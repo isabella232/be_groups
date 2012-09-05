@@ -1,7 +1,7 @@
 #########################
-be_groups
+be_groups  |extensionIcon|
 #########################
-:Copyright: |copy| Michael Klapper
+:Copyright: Michael Klapper
 :Version: 1.1.0
 :Description: This extension provide several new options to restructure large amount of be_groups records.
 
@@ -78,7 +78,7 @@ The "Group" Field provides only be_groups records of type "META" (tx_begroups_ki
    PageBreak
 
 ***************************************
-Backend Group Structure |extensionIcon|
+Backend Group Structure
 ***************************************
 
 A Systematic Approach Using Different Types of Backend User Groups
