@@ -1,14 +1,16 @@
 #########################
 be_groups
 #########################
-:Copyright: Michael Klapper
+:Copyright: |copy| Michael Klapper
 :Version: 1.1.0
 :Description: This extension provide several new options to restructure large amount of be_groups records.
 
 .. contents:: Table of Contents
   :depth: 2
 
-.. contents::depth: 2
+.. raw:: pdf
+
+   PageBreak
 
 ***************************************
 Overview
@@ -66,6 +68,10 @@ Affected Changes at be_user Records
 The "Group" Field provides only be_groups records of type "META" (tx_begroups_kind=3) or "Default all" (tx_begroups_kind=0).
 
 |imageBeUsersGroups|
+
+.. raw:: pdf
+
+   PageBreak
 
 ***************************************
 Backend Group Structure |extensionIcon|
@@ -150,6 +156,8 @@ Automatically Assigning New Pages to a Group
 By inserting the following TypoScript on the rootpage of a pagetree, we set group permissions and
 owner groups for all newly created subpages.
 
+::
+
     TCEMAIN {
             # common right settings for new pages
         permissions.group = show,edit,delete,new,editcontent
@@ -187,6 +195,10 @@ To simplify this further, we create so-called META groups prefixed “**[META]**
 for combining these groups. If we need a combination of different groups more than once, we create a
 META group and assign the users to this group. This also makes it easier to change the rights for a
 whole department without having to change them for each individual user.
+
+.. raw:: pdf
+
+   PageBreak
 
 ***************************************
 Migration Steps
