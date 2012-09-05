@@ -42,19 +42,19 @@ General
 
 Rights
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-
+|imageMetaGroupRights|
 
 Mount and WS
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-
+|imageMetaGroupMountAndWs|
 
 Language
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-
+|imageMetaGroupLanguage|
 
 Options
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-
+|imageMetaGroupOptions|
 
 Affected Changes at be_user Records
 =====================================
