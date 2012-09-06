@@ -1,3 +1,10 @@
+06-09-2012 Michael Klapper  <michael.klapper@morphodo.com>
+	* Add flash message as notice to inform the user if the "hide in list" option is toggled.
+	* Manual update the "hide in list" option is now possible if "kind of" is not changed at the same time.
+	* Improve ORDER BY in all listings of be_groups records.
+	* Restore original multiselect box for be_groups of "default all".
+	* Update Wizard should take care of records with the type "default all".
+
 04-09-2012 Michael Klapper  <michael.klapper@morphodo.com>
 	* Update subgroup_* fields if you switch from default (tx_begroups_kind = 0)
 	  to type META (tx_begroups_kind = 3).
