@@ -75,20 +75,21 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 				} else {
 					$subGroupIdList = $this->getIdListFromArray($incomingFieldArray['subgroup']);
 				}
-				/* @var $userExperience Tx_BeGroups_Migrate_UserExperience */
-				$userExperience = t3lib_div::makeInstance('Tx_BeGroups_Migrate_UserExperience');
-				$subGroupRecordValues = $userExperience->getSubGroupValueArray($subGroupIdList, $subGroupRecordValues);
+				if ($subGroupIdList != '') {
+					/* @var $userExperience Tx_BeGroups_Migrate_UserExperience */
+					$userExperience = t3lib_div::makeInstance('Tx_BeGroups_Migrate_UserExperience');
+					$subGroupRecordValues = $userExperience->getSubGroupValueArray($subGroupIdList, $subGroupRecordValues);
 
 					// final cleanup
-				foreach (Tx_BeGroups_Migrate_UserExperience::$ACCESS_TYPE_MAPPING as $index ) {
-					if (array_key_exists($index, $subGroupRecordValues)) {
-						$incomingFieldArray[$index] = explode(',', t3lib_div::uniqueList($subGroupRecordValues[$index]));
-					} else {
-						$incomingFieldArray[$index] = NULL;
+					foreach (Tx_BeGroups_Migrate_UserExperience::$ACCESS_TYPE_MAPPING as $index ) {
+						if (array_key_exists($index, $subGroupRecordValues)) {
+							$incomingFieldArray[$index] = explode(',', t3lib_div::uniqueList($subGroupRecordValues[$index]));
+						} else {
+							$incomingFieldArray[$index] = NULL;
+						}
 					}
 				}
 
-				$subGroupRecordValues = $subGroupRecordValues;
 			} elseif ($recordBefore['tx_begroups_kind'] === "3" && $incomingFieldArray['tx_begroups_kind'] === "3") {
 				$this->mergeSubgroups($incomingFieldArray);
 			}
