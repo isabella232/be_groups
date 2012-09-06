@@ -212,7 +212,7 @@ $TCA['be_groups']['ctrl']['typeicons']       = array (
 
 	// Improve visibility of subgroups in usergroup field to show only META groups
 t3lib_div::loadTCA("be_users");
-$TCA['be_users']['columns']['usergroup']['config']['foreign_table_where'] = ' AND hide_in_lists = 0 ORDER BY be_groups.tx_begroups_kind';
+$TCA['be_users']['columns']['usergroup']['config']['foreign_table_where'] = ' AND hide_in_lists = 0 ORDER BY be_groups.tx_begroups_kind, be_groups.title';
 
 $tabExtended       = '';
 $tabExtendedFields = '';
@@ -240,10 +240,8 @@ $TCA['be_groups']['types']['6'] = array ('showitem' => 'hidden;;;;1-1-1, title;;
 $TCA['be_groups']['types']['7'] = array ('showitem' => 'hidden;;;;1-1-1, title;;;;2-2-2,tx_begroups_kind, description, --div--;LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tabs.tsconfig, TSconfig, --div--;LLL:EXT:lang/locallang_tca.xml:be_groups.tabs.options, lockToDomain;;;;1-1-1, hide_in_lists;;;;2-2-2');
 $TCA['be_groups']['types']['8'] = array ('showitem' => 'hidden;;;;1-1-1, title;;;;2-2-2,tx_begroups_kind, description, --div--;LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tabs.workspace_rights, workspace_perms;;;;2-2-2, --div--;LLL:EXT:lang/locallang_tca.xml:be_groups.tabs.options, lockToDomain;;;;1-1-1, hide_in_lists;;;;2-2-2');
 
-	// change field definition from multiselect to checkbox
-$TCA['be_groups']['columns']['subgroup']['config']['renderMode']= 'checkbox';
 	// hide all META subgroups to avoid too much confusion.
-$TCA['be_groups']['columns']['subgroup']['config']['foreign_table_where'] = 'AND tx_begroups_kind NOT IN(3) AND NOT(be_groups.uid = ###THIS_UID###) AND be_groups.hidden=0 ORDER BY be_groups.title';
+$TCA['be_groups']['columns']['subgroup']['config']['foreign_table_where'] = 'AND tx_begroups_kind NOT IN(3) AND NOT(be_groups.uid = ###THIS_UID###) AND be_groups.hidden=0 ORDER BY be_groups.tx_begroups_kind,be_groups.title';
 $TCA['be_groups']['columns']['subgroup']['config']['wizards']['add'] = array(
 	'icon' => 'add.gif',
 	'params' => array(
@@ -266,4 +264,4 @@ $TCA['be_groups']['columns']['pagetypes_select']['config']['renderMode']= 'check
 //~ $TCA['be_groups']['columns']['non_exclude_fields']['config']['renderMode']= 'checkbox';
 
 	// change list sorting from "title" to "tx_begroups_kind"
-$TCA['be_groups']['ctrl']['default_sortby'] = 'ORDER BY tx_begroups_kind ASC';
+$TCA['be_groups']['ctrl']['default_sortby'] = 'ORDER BY tx_begroups_kind,title ASC';

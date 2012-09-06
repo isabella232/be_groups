@@ -61,7 +61,9 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 			$recordBefore = t3lib_befunc::getRecord('be_groups', $id, 'tx_begroups_kind,subgroup');
 
 			$this->resetHiddenFields($incomingFieldArray, $id);
-			$this->setHideInListFlagIfTypeIsNotMeta($incomingFieldArray);
+			if ($recordBefore['tx_begroups_kind'] !== $incomingFieldArray['tx_begroups_kind']) {
+				$this->setHideInListFlagIfTypeIsNotMeta($incomingFieldArray);
+			}
 			$this->setIncludeAccessListFlag($incomingFieldArray);
 
 				// change type from "default" to "meta"
@@ -185,8 +187,27 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 
 		if ($incomingFieldArray['tx_begroups_kind'] == 3 || $incomingFieldArray['tx_begroups_kind'] == 0) {
 			$incomingFieldArray['hide_in_lists'] = 0;
+			$this->addFlashMessageNotice('Update "Hide in list" option to inactive state', 'This group record will be shown in be_user records to select as "Group".');
 		} else {
 			$incomingFieldArray['hide_in_lists'] = 1;
+			$this->addFlashMessageNotice('Update "Hide in list" option to active state.', 'This group record will not be visible in be_user records and cannot be selected as "Group".');
 		}
+	}
+
+	/**
+	 * Add flash message of type notice to the backend user interface.
+	 *
+	 * @param string $title
+	 * @param string $message
+	 * @return void
+	 */
+	private function addFlashMessageNotice($title, $message) {
+		$flashMessage = t3lib_div::makeInstance('t3lib_FlashMessage',
+			htmlspecialchars($title),
+			htmlspecialchars($message),
+			t3lib_FlashMessage::INFO,
+			TRUE
+		);
+		t3lib_FlashMessageQueue::addMessage($flashMessage);
 	}
 }

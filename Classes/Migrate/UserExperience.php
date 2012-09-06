@@ -54,7 +54,7 @@ class Tx_BeGroups_Migrate_UserExperience {
 		$content = '';
 		$formPanel = '<form method="POST">%s</form>';
 		$controls = '<input type="hidden" name="step" value="1" />';
-		$controls .= '<input type="checkbox" name="hideInListWizardStep" value="1" /> Activate "hide in list" checkbox for records != "META" (' . $this->hideInListWizardAffectsCount() . ' rows).<br />';
+		$controls .= '<input type="checkbox" name="hideInListWizardStep" value="1" /> Activate "hide in list" checkbox for records != "META" or "Default all" (' . $this->hideInListWizardAffectsCount() . ' rows).<br />';
 		$controls .= '<input type="checkbox" name="subGroupWizardStep" value="1" /> Split be_groups configuration into seperate fields (' . $this->subGroupWizardAffectsCount() . ' rows).<br />';
 		$controls .= '<input type="submit" value="Submit" />';
 
@@ -94,7 +94,7 @@ class Tx_BeGroups_Migrate_UserExperience {
 	 * @return void
 	 */
 	protected function setHideInListFlag() {
-		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('be_groups', 'tx_begroups_kind NOT IN(3) AND deleted = 0', array('hide_in_lists' => 1));
+		$GLOBALS['TYPO3_DB']->exec_UPDATEquery('be_groups', 'tx_begroups_kind NOT IN(0,3) AND deleted = 0', array('hide_in_lists' => 1));
 	}
 
 	/**
@@ -104,7 +104,7 @@ class Tx_BeGroups_Migrate_UserExperience {
 	 * @return integer
 	 */
 	protected function hideInListWizardAffectsCount() {
-		return $GLOBALS['TYPO3_DB']->exec_SELECTcountRows('*', 'be_groups', 'tx_begroups_kind NOT IN(3) and hide_in_lists = 0 AND deleted = 0');
+		return $GLOBALS['TYPO3_DB']->exec_SELECTcountRows('*', 'be_groups', 'tx_begroups_kind NOT IN(0,3) and hide_in_lists = 0 AND deleted = 0');
 	}
 
 	/**
