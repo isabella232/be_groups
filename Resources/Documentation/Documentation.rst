@@ -2,7 +2,7 @@
 be_groups
 #########
 :Author: Michael Klapper  |extensionIcon|
-:Version: 1.2.0
+:Version: 1.2.1
 :Description: This extension provide several new options to restructure large amount of be_groups records.
 
 .. raw:: pdf
