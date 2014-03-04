@@ -226,7 +226,7 @@ if (t3lib_extMgm::isLoaded('templavoila')) {
 	$tabExtendedFields .= 'tx_templavoila_access;;;;1-1-1, ';
 }
 if (trim($tabExtendedFields) != '') {
-	$tabExtended = '--div--;LLL:EXT:lang/locallang_tca.xml:be_groups.tabs.extended, ' . $tabExtendedFields;
+	$tabExtended = '--div--;LLL:EXT:lang/locallang_tca.xml:be_groups.tabs.extended,file_permissions,' . $tabExtendedFields;
 }
 
 	// define the new types and their showitems
