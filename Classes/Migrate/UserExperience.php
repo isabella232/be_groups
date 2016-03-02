@@ -1,4 +1,7 @@
 <?php
+
+namespace AOE\BeGroups\Migrate;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,13 +26,15 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * This class controls the visibility of available fields from be_groups records.
  *
  * @link http://www.morphodo.com/
  * @author Michael Klapper <michael.klapper@morphodo.com>
  */
-class Tx_BeGroups_Migrate_UserExperience {
+class UserExperience {
 
 	static $ACCESS_TYPE_MAPPING = array (
 			1 => 'subgroup_r',
@@ -48,9 +53,9 @@ class Tx_BeGroups_Migrate_UserExperience {
 	 * @return string
 	 */
 	public function wizardForm() {
-		$step = t3lib_div::_GP('step') ? t3lib_div::_GP('step') : FALSE;
-		$hideInListWizardStep = t3lib_div::_GP('hideInListWizardStep') ? TRUE : FALSE;
-		$subGroupWizardStep = t3lib_div::_GP('subGroupWizardStep') ? TRUE : FALSE;
+		$step = GeneralUtility::_GP('step') ? GeneralUtility::_GP('step') : FALSE;
+		$hideInListWizardStep = GeneralUtility::_GP('hideInListWizardStep') ? TRUE : FALSE;
+		$subGroupWizardStep = GeneralUtility::_GP('subGroupWizardStep') ? TRUE : FALSE;
 		$content = '';
 		$formPanel = '<form method="POST">%s</form>';
 		$controls = '<input type="hidden" name="step" value="1" />';
@@ -145,7 +150,7 @@ class Tx_BeGroups_Migrate_UserExperience {
 
 				// final cleanup
 			foreach ($subGroupRecordValues as $index => $value) {
-				$subGroupRecordValues[$index] = t3lib_div::uniqueList($value);
+				$subGroupRecordValues[$index] = GeneralUtility::uniqueList($value);
 			}
 
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery('be_groups', 'uid=' . $group['uid'], $subGroupRecordValues);
@@ -193,7 +198,7 @@ class Tx_BeGroups_Migrate_UserExperience {
 			$subGroupRecordValues[$index] = rtrim($value, ',') . ',';
 			$subGroupRecordValues['subgroup'] .= $value . ',';
 		}
-		$subGroupRecordValues['subgroup'] = t3lib_div::uniqueList($subGroupRecordValues['subgroup']) . ',';
+		$subGroupRecordValues['subgroup'] = GeneralUtility::uniqueList($subGroupRecordValues['subgroup']) . ',';
 
 		return $subGroupRecordValues;
 	}

@@ -1,0 +1,38 @@
+{
+  "name": "aoe/be_groups",
+  "description": "This extension provide several new options to restructure large amount of be_groups records",
+  "type": "typo3-cms-extension",
+  "keywords": [
+    "TYPO3 CMS",
+    "Group Management",
+    "User Access"
+  ],
+  "license": [
+    "GPL-2.0+"
+  ],
+  "homepage": "https://github.com/AOEpeople/be_groups",
+  "version": "1.2.2",
+  "support": {
+    "issues": "https://github.com/AOEpeople/be_groups/issues"
+  },
+  "require": {
+    "typo3/cms": ">=6.2.0,<8.0"
+  },
+  "authors": [
+    {
+      "name": "Michael Klapper",
+      "email": "michael.klapper@aoe.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Tomas Norre Mikkelsen",
+      "email": "tomas.mikkelsen@aoe.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "AOE\\BeGroups\\": "Classes"
+    }
+  }
+}

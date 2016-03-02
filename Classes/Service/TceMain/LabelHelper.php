@@ -1,4 +1,7 @@
 <?php
+
+namespace AOE\BeGroups\Service\TceMain;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -29,7 +32,7 @@
  * @link http://www.morphodo.com/
  * @author Michael Klapper <michael.klapper@morphodo.com>
  */
-class Tx_BeGroups_ServiceTceMain_LabelHelper {
+class LabelHelper {
 
 	/**
 	 * Retrive a custom label

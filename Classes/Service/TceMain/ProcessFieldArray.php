@@ -1,4 +1,7 @@
 <?php
+
+namespace AOE\BeGroups\Service\TceMain;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -23,13 +26,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
+
 /**
  * This class controls the visibility of available fields from be_groups records.
  *
  * @link http://www.morphodo.com/
  * @author Michael Klapper <michael.klapper@morphodo.com>
  */
-class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
+class ProcessFieldArray {
 
 	/**
 	 * @var array
@@ -58,7 +66,7 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 	 */
 	public function processDatamap_preProcessFieldArray(&$incomingFieldArray, $table, $id, $parentObj) {
 		if ($table == 'be_groups') {
-			$recordBefore = t3lib_befunc::getRecord('be_groups', $id, 'tx_begroups_kind,subgroup');
+			$recordBefore = BackendUtility::getRecord('be_groups', $id, 'tx_begroups_kind,subgroup');
 
 			$this->resetHiddenFields($incomingFieldArray, $id);
 			if ($recordBefore['tx_begroups_kind'] !== $incomingFieldArray['tx_begroups_kind']) {
@@ -76,14 +84,14 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 					$subGroupIdList = $this->getIdListFromArray($incomingFieldArray['subgroup']);
 				}
 				if ($subGroupIdList != '') {
-					/* @var $userExperience Tx_BeGroups_Migrate_UserExperience */
-					$userExperience = t3lib_div::makeInstance('Tx_BeGroups_Migrate_UserExperience');
+					/* @var $userExperience \AOE\BeGroups\Migrate\UserExperience */
+					$userExperience = GeneralUtility::makeInstance('AOE\\BeGroups\\Migrate\\UserExperience');
 					$subGroupRecordValues = $userExperience->getSubGroupValueArray($subGroupIdList, $subGroupRecordValues);
 
 					// final cleanup
-					foreach (Tx_BeGroups_Migrate_UserExperience::$ACCESS_TYPE_MAPPING as $index ) {
+					foreach (\AOE\BeGRoups\Migrate\UserExperience::$ACCESS_TYPE_MAPPING as $index ) {
 						if (array_key_exists($index, $subGroupRecordValues)) {
-							$incomingFieldArray[$index] = explode(',', t3lib_div::uniqueList($subGroupRecordValues[$index]));
+							$incomingFieldArray[$index] = explode(',', GeneralUtility::uniqueList($subGroupRecordValues[$index]));
 						} else {
 							$incomingFieldArray[$index] = NULL;
 						}
@@ -129,7 +137,7 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 
 		foreach ($fieldListToMerge as $fieldName) {
 			if (is_array($incomingFieldArray[$fieldName])) {
-				$selectedList = t3lib_div::array_merge($selectedList, array_flip($incomingFieldArray[$fieldName]));
+				$selectedList = GeneralUtility::array_merge($selectedList, array_flip($incomingFieldArray[$fieldName]));
 			}
 		}
 
@@ -151,10 +159,10 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 	protected function resetHiddenFields(&$incomingFieldArray, $id) {
 
 		if (! is_null($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']]) ) {
-			$fieldsToKeepArray = array_keys(t3lib_beFunc::getTCAtypes('be_groups', $incomingFieldArray, 1));
+			$fieldsToKeepArray = array_keys(BackendUtility::getTCAtypes('be_groups', $incomingFieldArray, 1));
 
 			foreach ($incomingFieldArray as $column => $value) {
-				if (! in_array($column, $fieldsToKeepArray) && (t3lib_utility_Math::canBeInterpretedAsInteger($id) === true) ) {
+				if (! in_array($column, $fieldsToKeepArray) && (MathUtility::canBeInterpretedAsInteger($id) === true) ) {
 					$incomingFieldArray[$column] = null;
 				}
 			}
@@ -163,7 +171,7 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 
 	/**
 	 * Include the access list based on the defined matrix in member
-	 * Tx_BeGroups_Service_TceMain_ProcessFieldArray::$setIncludeListFlag
+	 * \AOE\BeGroups\Service\TceMain\ProcessFieldArray::$setIncludeListFlag
 	 *
 	 * @param array $incomingFieldArray
 	 * @return void
@@ -203,12 +211,12 @@ class Tx_BeGroups_Service_TceMain_ProcessFieldArray {
 	 * @return void
 	 */
 	private function addFlashMessageNotice($title, $message) {
-		$flashMessage = t3lib_div::makeInstance('t3lib_FlashMessage',
+		$flashMessage = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 			htmlspecialchars($title),
 			htmlspecialchars($message),
-			t3lib_FlashMessage::INFO,
+			FlashMessage::INFO,
 			TRUE
 		);
-		t3lib_FlashMessageQueue::addMessage($flashMessage);
+		FlashMessage::addMessage($flashMessage);
 	}
 }

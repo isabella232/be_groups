@@ -1,3 +1,8 @@
+02-03-2016 Tomas Norre Mikkelsen <tomas.mikkelsen@aoe.com>
+	* Replace deprecated function calls like "t3lib_div"
+	* Switched to namespaces
+	* Added Composer.json
+
 06-09-2012 Michael Klapper  <michael.klapper@morphodo.com>
 	* Add flash message as notice to inform the user if the "hide in list" option is toggled.
 	* Manual update the "hide in list" option is now possible if "kind of" is not changed at the same time.
