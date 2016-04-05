@@ -1,7 +1,7 @@
 <?php
 if (!defined ('TYPO3_MODE')) die ('Access denied.');
 
-$TCA['be_groups']['ctrl']['label_userFunc'] = 'Tx_BeGroups_ServiceTceMain_LabelHelper->getCombinedTitle';
+$TCA['be_groups']['ctrl']['label_userFunc'] = 'AOE\\BeGroups\\Service\\TceMain\\LabelHelper->getCombinedTitle';
 
 $tempColumns = array (
 	"tx_begroups_kind" => array (
@@ -10,15 +10,15 @@ $tempColumns = array (
 		"config"  => array (
 			"type"  => "select",
 			"items" => array (
-				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.0", "0", t3lib_extMgm::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_0.gif"),
-				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.1", "1", t3lib_extMgm::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_1.gif"),
-				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.2", "2", t3lib_extMgm::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_2.gif"),
-				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.3", "3", t3lib_extMgm::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_3.gif"),
-				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.4", "4", t3lib_extMgm::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_4.gif"),
-				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.5", "5", t3lib_extMgm::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_5.gif"),
-				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.6", "6", t3lib_extMgm::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_6.gif"),
-				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.7", "7", t3lib_extMgm::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_7.gif"),
-				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.8", "8", t3lib_extMgm::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_8.gif"),
+				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.0", "0", \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_0.gif"),
+				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.1", "1", \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_1.gif"),
+				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.2", "2", \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_2.gif"),
+				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.3", "3", \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_3.gif"),
+				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.4", "4", \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_4.gif"),
+				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.5", "5", \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_5.gif"),
+				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.6", "6", \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_6.gif"),
+				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.7", "7", \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_7.gif"),
+				array("LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xml:be_groups.tx_begroups_kind.I.8", "8", \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath("be_groups")."/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_8.gif"),
 			),
 			"size"     => 1,
 			"maxitems" => 1,
@@ -179,23 +179,23 @@ $tempColumns = array (
 	),
 );
 
-t3lib_div::loadTCA("be_groups");
-t3lib_extMgm::addTCAcolumns("be_groups", $tempColumns, 1);
-t3lib_extMgm::addToAllTCAtypes("be_groups","tx_begroups_kind;;;;1-1-1",'','after:title');
+\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA("be_groups");
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns("be_groups", $tempColumns, 1);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes("be_groups","tx_begroups_kind;;;;1-1-1",'','after:title');
 unset($tempColumns);
 
 	// register the new types field
 $TCA['be_groups']['ctrl']['type']            = 'tx_begroups_kind';
 $TCA['be_groups']['ctrl']['typeicon_column'] = 'tx_begroups_kind';
 $TCA['be_groups']['ctrl']['typeicons']       = array (
-	'1' => t3lib_extMgm::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_1.gif',
-	'2' => t3lib_extMgm::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_2.gif',
-	'3' => t3lib_extMgm::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_3.gif',
-	'4' => t3lib_extMgm::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_4.gif',
-	'5' => t3lib_extMgm::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_5.gif',
-	'6' => t3lib_extMgm::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_6.gif',
-	'7' => t3lib_extMgm::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_7.gif',
-	'8' => t3lib_extMgm::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_8.gif',
+	'1' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_1.gif',
+	'2' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_2.gif',
+	'3' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_3.gif',
+	'4' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_4.gif',
+	'5' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_5.gif',
+	'6' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_6.gif',
+	'7' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_7.gif',
+	'8' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . '/Resources/Public/Images/selicon_be_groups_tx_begroups_kind_8.gif',
 );
 
 /**
@@ -211,18 +211,18 @@ $TCA['be_groups']['ctrl']['typeicons']       = array (
 */
 
 	// Improve visibility of subgroups in usergroup field to show only META groups
-t3lib_div::loadTCA("be_users");
+\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA("be_users");
 $TCA['be_users']['columns']['usergroup']['config']['foreign_table_where'] = ' AND hide_in_lists = 0 ORDER BY be_groups.tx_begroups_kind, be_groups.title';
 
 $tabExtended       = '';
 $tabExtendedFields = '';
-if (t3lib_extMgm::isLoaded('tt_news')) {
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_news')) {
 	$tabExtendedFields .= 'tt_news_categorymounts;;;;1-1-1, ';
 }
-if (t3lib_extMgm::isLoaded('dam')) {
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('dam')) {
 	$tabExtendedFields .= 'tx_dam_mountpoints;;;;1-1-1, ';
 } 
-if (t3lib_extMgm::isLoaded('templavoila')) {
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('templavoila')) {
 	$tabExtendedFields .= 'tx_templavoila_access;;;;1-1-1, ';
 }
 if (trim($tabExtendedFields) != '') {
@@ -263,10 +263,6 @@ $TCA['be_groups']['columns']['subgroup']['config']['wizards']['add'] = array(
 $TCA['be_groups']['columns']['file_mountpoints']['config']['renderMode']= 'checkbox';
 $TCA['be_groups']['columns']['file_mountpoints']['config']['wizards'] = null;
 $TCA['be_groups']['columns']['pagetypes_select']['config']['renderMode']= 'checkbox';
-//~ $TCA['be_groups']['columns']['groupMods']['config']['renderMode']= 'checkbox';
-//~ $TCA['be_groups']['columns']['tables_modify']['config']['renderMode']= 'checkbox';
-//~ $TCA['be_groups']['columns']['tables_select']['config']['renderMode']= 'checkbox';
-//~ $TCA['be_groups']['columns']['non_exclude_fields']['config']['renderMode']= 'checkbox';
 
 	// change list sorting from "title" to "tx_begroups_kind"
 $TCA['be_groups']['ctrl']['default_sortby'] = 'ORDER BY tx_begroups_kind,title ASC';

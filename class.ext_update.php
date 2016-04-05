@@ -38,8 +38,8 @@ class ext_update {
 	 */
 	public function main() {
 
-		/* @var $userExperience Tx_BeGroups_Migrate_UserExperience */
-		$userExperience = t3lib_div::makeInstance('Tx_BeGroups_Migrate_UserExperience');
+		/* @var $userExperience \AOE\BeGroups\Migrate\UserExperience */
+		$userExperience = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('AOE\\BeGroups\\Migrate\\UserExperience');
 		return $userExperience->wizardForm();
 	}
 
