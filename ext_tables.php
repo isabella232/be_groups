@@ -179,7 +179,6 @@ $tempColumns = array (
 	),
 );
 
-\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA("be_groups");
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns("be_groups", $tempColumns, 1);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes("be_groups","tx_begroups_kind;;;;1-1-1",'','after:title');
 unset($tempColumns);
@@ -211,7 +210,6 @@ $TCA['be_groups']['ctrl']['typeicons']       = array (
 */
 
 	// Improve visibility of subgroups in usergroup field to show only META groups
-\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA("be_users");
 $TCA['be_users']['columns']['usergroup']['config']['foreign_table_where'] = ' AND hide_in_lists = 0 ORDER BY be_groups.tx_begroups_kind, be_groups.title';
 
 $tabExtended       = '';
