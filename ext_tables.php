@@ -50,7 +50,9 @@ $tempColumns = array (
 						'setValue' => 'prepend',
 						'table' => 'be_groups',
 					),
-					'script' => 'wizard_add.php',
+					'module' => array(
+						'name' => 'wizard_add',
+					),
 					'title' => 'LLL:EXT:lang/locallang_tca.xml:be_users.usergroup_add_title',
 					'type' => 'script',
 				)
@@ -179,7 +181,6 @@ $tempColumns = array (
 	),
 );
 
-\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA("be_groups");
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns("be_groups", $tempColumns, 1);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes("be_groups","tx_begroups_kind;;;;1-1-1",'','after:title');
 unset($tempColumns);
@@ -211,7 +212,6 @@ $TCA['be_groups']['ctrl']['typeicons']       = array (
 */
 
 	// Improve visibility of subgroups in usergroup field to show only META groups
-\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA("be_users");
 $TCA['be_users']['columns']['usergroup']['config']['foreign_table_where'] = ' AND hide_in_lists = 0 ORDER BY be_groups.tx_begroups_kind, be_groups.title';
 
 $tabExtended       = '';
@@ -254,7 +254,9 @@ $TCA['be_groups']['columns']['subgroup']['config']['wizards']['add'] = array(
 		'setValue' => 'prepend',
 		'table' => 'be_groups',
 	),
-	'script' => 'wizard_add.php',
+	'module' => array(
+		'name' => 'wizard_add',
+	),
 	'title' => 'LLL:EXT:lang/locallang_tca.xml:be_users.usergroup_add_title',
 	'type' => 'script',
 );
