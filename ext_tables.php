@@ -50,7 +50,9 @@ $tempColumns = array (
 						'setValue' => 'prepend',
 						'table' => 'be_groups',
 					),
-					'script' => 'wizard_add.php',
+					'module' => array(
+						'name' => 'wizard_add',
+					),
 					'title' => 'LLL:EXT:lang/locallang_tca.xml:be_users.usergroup_add_title',
 					'type' => 'script',
 				)
@@ -252,7 +254,9 @@ $TCA['be_groups']['columns']['subgroup']['config']['wizards']['add'] = array(
 		'setValue' => 'prepend',
 		'table' => 'be_groups',
 	),
-	'script' => 'wizard_add.php',
+	'module' => array(
+		'name' => 'wizard_add',
+	),
 	'title' => 'LLL:EXT:lang/locallang_tca.xml:be_users.usergroup_add_title',
 	'type' => 'script',
 );
