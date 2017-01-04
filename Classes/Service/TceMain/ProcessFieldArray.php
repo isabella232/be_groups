@@ -26,8 +26,11 @@ namespace AOE\BeGroups\Service\TceMain;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use AOE\BeGroups\Migrate\UserExperience;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 
@@ -60,7 +63,7 @@ class ProcessFieldArray {
 	 * @param array $incomingFieldArray Current record
 	 * @param string $table Database table of current record
 	 * @param integer $id Uid of current record
-	 * @param t3lib_TCEmain  $parentObj
+	 * @param DataHandler $parentObj
 	 *
 	 * @return string
 	 */
@@ -74,8 +77,8 @@ class ProcessFieldArray {
 			}
 			$this->setIncludeAccessListFlag($incomingFieldArray);
 
-				// change type from "default" to "meta"
-			if ($recordBefore['tx_begroups_kind'] === "0" && $incomingFieldArray['tx_begroups_kind'] === "3") {
+			// change type from "default" to "meta"
+			if ($recordBefore['tx_begroups_kind'] === 0 && $incomingFieldArray['tx_begroups_kind'] === "3") {
 				$subGroupRecordValues = array();
 				if (is_null($incomingFieldArray['subgroup'])) {
 					unset($incomingFieldArray['subgroup']);
@@ -84,12 +87,12 @@ class ProcessFieldArray {
 					$subGroupIdList = $this->getIdListFromArray($incomingFieldArray['subgroup']);
 				}
 				if ($subGroupIdList != '') {
-					/* @var $userExperience \AOE\BeGroups\Migrate\UserExperience */
-					$userExperience = GeneralUtility::makeInstance('AOE\\BeGroups\\Migrate\\UserExperience');
+					/* @var $userExperience UserExperience */
+					$userExperience = GeneralUtility::makeInstance(UserExperience::class);
 					$subGroupRecordValues = $userExperience->getSubGroupValueArray($subGroupIdList, $subGroupRecordValues);
 
 					// final cleanup
-					foreach (\AOE\BeGRoups\Migrate\UserExperience::$ACCESS_TYPE_MAPPING as $index ) {
+					foreach (UserExperience::$ACCESS_TYPE_MAPPING as $index ) {
 						if (array_key_exists($index, $subGroupRecordValues)) {
 							$incomingFieldArray[$index] = explode(',', GeneralUtility::uniqueList($subGroupRecordValues[$index]));
 						} else {
@@ -98,10 +101,9 @@ class ProcessFieldArray {
 					}
 				}
 
-			} elseif ($recordBefore['tx_begroups_kind'] === "3" && $incomingFieldArray['tx_begroups_kind'] === "3") {
+			} elseif ($recordBefore['tx_begroups_kind'] === 3 && $incomingFieldArray['tx_begroups_kind'] === "3") {
 				$this->mergeSubgroups($incomingFieldArray);
 			}
-
 		}
 	}
 
@@ -137,11 +139,11 @@ class ProcessFieldArray {
 
 		foreach ($fieldListToMerge as $fieldName) {
 			if (is_array($incomingFieldArray[$fieldName])) {
-				$selectedList = GeneralUtility::array_merge($selectedList, array_flip($incomingFieldArray[$fieldName]));
+				$selectedList = $selectedList + array_flip($incomingFieldArray[$fieldName]);
 			}
 		}
 
-			// fix expected structure
+		// fix expected structure
 		foreach ($selectedList as $key => $value) {
 			$subgroupList[] = $key;
 		}
@@ -157,7 +159,6 @@ class ProcessFieldArray {
 	 * @return void
 	 */
 	protected function resetHiddenFields(&$incomingFieldArray, $id) {
-
 		if (! is_null($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']]) ) {
 			$fieldsToKeepArray = array_keys(BackendUtility::getTCAtypes('be_groups', $incomingFieldArray, 1));
 
@@ -177,7 +178,7 @@ class ProcessFieldArray {
 	 * @return void
 	 */
 	protected function setIncludeAccessListFlag(&$incomingFieldArray) {
-			// update include access list flag
+		// update include access list flag
 		if ($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']] === true) {
 			$incomingFieldArray['inc_access_lists'] = 1;
 		} elseif ($this->setIncludeListFlag[$incomingFieldArray['tx_begroups_kind']] === false) {
@@ -193,7 +194,6 @@ class ProcessFieldArray {
 	 * @return void
 	 */
 	protected function setHideInListFlagIfTypeIsNotMeta(&$incomingFieldArray) {
-
 		if ($incomingFieldArray['tx_begroups_kind'] == 3 || $incomingFieldArray['tx_begroups_kind'] == 0) {
 			$incomingFieldArray['hide_in_lists'] = 0;
 			$this->addFlashMessageNotice('Update "Hide in list" option to inactive state', 'This group record will be shown in be_user records to select as "Group".');
@@ -211,12 +211,17 @@ class ProcessFieldArray {
 	 * @return void
 	 */
 	private function addFlashMessageNotice($title, $message) {
-		$flashMessage = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
-			htmlspecialchars($title),
-			htmlspecialchars($message),
+		/** @var FlashMessage $flashMessage */
+		$flashMessage = GeneralUtility::makeInstance(FlashMessage::class,
+			$title,
+			$message,
 			FlashMessage::INFO,
 			TRUE
 		);
-		FlashMessage::addMessage($flashMessage);
+
+		/** @var FlashMessageService $flashMessageService */
+		$flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+		$messageQueue = $flashMessageService->getMessageQueueByIdentifier();
+		$messageQueue->addMessage($flashMessage);
 	}
 }

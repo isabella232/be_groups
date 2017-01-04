@@ -2,6 +2,8 @@
 
 namespace AOE\BeGroups\Service\TceMain;
 
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -35,7 +37,7 @@ namespace AOE\BeGroups\Service\TceMain;
 class LabelHelper {
 
 	/**
-	 * Retrive a custom label
+	 * Retrieve a custom label
 	 *
 	 * @param array $params Current record
 	 * @param object $pObj
@@ -43,11 +45,8 @@ class LabelHelper {
 	 * @return string
 	 */
 	public function getCombinedTitle(&$params, &$pObj) {
-
-		global $LANG;
-		$type = $params['row']['tx_begroups_kind'];
-		$label = $LANG->sL('LLL:EXT:be_groups/Resources/Private/Language/locallang.xlf:label.prefix.' . $type) . $params['row']['title'];
-
-		$params['title'] = $label;
+		$key = 'label.prefix.' . $params['row']['tx_begroups_kind'];
+		$label = LocalizationUtility::translate($key, 'be_groups');
+		$params['title'] = $label . $params['row']['title'];
 	}
 }
