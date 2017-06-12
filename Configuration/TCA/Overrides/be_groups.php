@@ -147,14 +147,15 @@ if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('dam')) {
 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('templavoila')) {
     $tabExtendedFields .= 'tx_templavoila_access;;;;1-1-1, ';
 }
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('snowbabel')) {
+    $tabExtendedFields .= 'tx_snowbabel_extensions;;;;1-1-1,tx_snowbabel_languages;;;;1-1-1, ';
+}
 if (trim($tabExtendedFields) != '') {
-    $tabExtended = '--div--;LLL:EXT:lang/locallang_tca.xml:be_groups.tabs.extended, ' . $tabExtendedFields;
+    $tabExtended = '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended, ' . $tabExtendedFields;
 }
-if (version_compare(TYPO3_version, '6.0.0','>=')) {
-    $filePermissions = '--div--;LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xlf:be_groups.tabs.file_permissions, file_permissions,';
-} else {
-    $filePermissions = '';
-}
+
+$filePermissions = '--div--;LLL:EXT:be_groups/Resources/Private/Language/locallang_db.xlf:be_groups.tabs.file_permissions, file_permissions,';
+
 
 // register the new types field
 $GLOBALS['TCA']['be_groups']['ctrl']['default_sortby'] = 'ORDER BY tx_begroups_kind, title ASC';
